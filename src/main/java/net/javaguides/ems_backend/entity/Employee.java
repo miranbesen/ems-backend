@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.javaguides.ems_backend.dto.EmployeeDto;
+import org.springframework.beans.BeanUtils;
 
 @Entity
 @Data
@@ -21,4 +23,8 @@ public class Employee {
     @Column(name = "email_id", nullable = false, unique = true)
     private String email;
 
+
+    public Employee(EmployeeDto employeeDto){
+        BeanUtils.copyProperties(employeeDto,this);
+    }
 }
