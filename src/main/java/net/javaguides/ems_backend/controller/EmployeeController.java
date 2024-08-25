@@ -42,5 +42,11 @@ public class EmployeeController {
         return ResponseEntity.ok(updateEmployee);
     }
 
+    @DeleteMapping
+    public ResponseEntity<String> deleteEmployee(@RequestBody Long id) {
+        service.deleteEmployee(id);
+        return ResponseEntity.ok("Employee deleted successfully");
+    }
+
 
 }

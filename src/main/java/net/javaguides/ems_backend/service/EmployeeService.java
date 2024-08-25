@@ -46,5 +46,11 @@ public class EmployeeService implements IEmployeeService {
         return new ViewEmployee(repository.save(employee));
     }
 
+    @Override
+    public void deleteEmployee(Long id) {
+        Employee employee = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee is not exists with given id: " + id));
+        repository.deleteById(id);
+    }
+
 
 }

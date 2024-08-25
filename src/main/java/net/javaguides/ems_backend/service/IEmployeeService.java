@@ -13,4 +13,6 @@ public interface IEmployeeService {
     List<ViewEmployee> getEmplooEmployeeList();
 
     ViewEmployee updateEmployee(EmployeeDto employeeDto);
+
+    void deleteEmployee(Long id);
 }
