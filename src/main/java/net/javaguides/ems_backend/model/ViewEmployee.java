@@ -1,20 +1,20 @@
-package net.javaguides.ems_backend.dto;
+package net.javaguides.ems_backend.model;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.javaguides.ems_backend.entity.Employee;
 import org.springframework.beans.BeanUtils;
 
-
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeDto {
-    private Long id;
+@AllArgsConstructor
+public class ViewEmployee {
     private String firstName;
     private String lastName;
     private String email;
 
+    public ViewEmployee(Employee employee){
+        BeanUtils.copyProperties(employee,this);
+    }
 }

@@ -24,7 +24,7 @@ public class Employee {
     private String email;
 
 
-    public Employee(EmployeeDto employeeDto){
-        BeanUtils.copyProperties(employeeDto,this);
+    public Employee(EmployeeDto employeeDto) {
+        BeanUtils.copyProperties(employeeDto, this);
     }
 }

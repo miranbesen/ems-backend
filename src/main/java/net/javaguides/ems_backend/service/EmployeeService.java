@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import net.javaguides.ems_backend.dto.EmployeeDto;
 import net.javaguides.ems_backend.entity.Employee;
 import net.javaguides.ems_backend.exception.ResourceNotFoundException;
+import net.javaguides.ems_backend.model.ViewEmployee;
 import net.javaguides.ems_backend.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,20 +18,33 @@ public class EmployeeService implements IEmployeeService {
     private final EmployeeRepository repository;
 
     @Override
-    public EmployeeDto createEmployee(EmployeeDto employeeDto) {
+    public ViewEmployee createEmployee(EmployeeDto employeeDto) {
         Employee employee = new Employee(employeeDto);
-        return new EmployeeDto(repository.save(employee));
+        return new ViewEmployee(repository.save(employee));
     }
 
     @Override
-    public EmployeeDto getEmployeeById(Long id) {
+    public ViewEmployee getEmployeeById(Long id) {
         Employee employee = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee is not exists with given id: " + id));
-        return new EmployeeDto(employee);
+        return new ViewEmployee(employee);
     }
 
     @Override
-    public List<EmployeeDto> getEmplooEmployeeList() {
+    public List<ViewEmployee> getEmplooEmployeeList() {
         List<Employee> employeeList = repository.findAll();
-        return employeeList.stream().map(EmployeeDto::new).collect(Collectors.toList());
+        return employeeList.stream().map(ViewEmployee::new).collect(Collectors.toList());
     }
+
+    @Override
+    public ViewEmployee updateEmployee(EmployeeDto employeeDto) {
+        Employee employee = repository.findById(employeeDto.getId()).orElseThrow(() -> new ResourceNotFoundException("Employee is not exists with given id: " + employeeDto.getId()));
+
+        employee.setFirstName(employeeDto.getFirstName());
+        employee.setLastName(employeeDto.getLastName());
+        employee.setEmail(employeeDto.getEmail());
+
+        return new ViewEmployee(repository.save(employee));
+    }
+
+
 }
